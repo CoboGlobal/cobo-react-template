@@ -1,0 +1,7 @@
+"src/toolkit/":
+  - app_type:
+    - portal
+
+".env.example":
+  - app_type:
+    - portal
