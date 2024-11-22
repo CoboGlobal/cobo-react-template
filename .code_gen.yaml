@@ -2,6 +2,22 @@
   - app_type:
     - portal
 
+"src/atoms/":
+  - app_type:
+    - portal
+
+"src/hooks/":
+  - app_type:
+    - portal
+
+"src/pages/Auth.tsx":
+  - app_type:
+    - portal
+
+"scripts/config_manager.sh":
+  - app_type:
+    - portal
+
 ".env.example":
   - app_type:
     - portal

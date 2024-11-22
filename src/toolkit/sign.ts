@@ -18,7 +18,7 @@ export function getSign(
     params ? new URLSearchParams(params).toString() : '',
     data ? JSON.stringify(data) : '',
   ].join('|');
-  const privateKey = process.env.REACT_APP_PRIVATE_KEY || '';
+  const privateKey = process.env.REACT_COBO_APP_SECRET || '';
 
   const hash256 = bytesToHex(sha256(sha256(message)));
   const signature = bytesToHex(ed25519.sign(hash256, privateKey));

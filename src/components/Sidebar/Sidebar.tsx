@@ -1,13 +1,24 @@
-import React, { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { History, PencilRuler, Wallet } from "lucide-react";
+// %if app_type == portal
+import useAuth from '@/hooks/auth';
+import coboApi from '@/services/coboApi';
+// %endif
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Wallets');
+  // %if app_type == portal
+  const { isLoggedIn, accessToken, setDefaultAccessToken } = useAuth();
+  const { pathname } = useLocation();
+  // %endif
 
   const tabs = useMemo(() => {
+    // %if app_type == portal
+    if (pathname === '/auth' && !isLoggedIn) return [];
+    // %endif
     return [
       {
         key: 'Wallets',
@@ -27,7 +38,29 @@ const Sidebar: React.FC = () => {
       },
       // %endif
     ];
-  }, []);
+  }, [
+    // %if app_type == portal
+    pathname, isLoggedIn
+    // %endif
+  ]);
+
+  // %if app_type == portal
+  useEffect(() => {
+    if (!isLoggedIn && pathname !== '/auth') {
+      navigate('/auth');
+    }
+  }, [isLoggedIn, navigate, pathname]);
+
+  useEffect(() => {
+    if (isLoggedIn && accessToken) {
+      coboApi.setAuthToken(accessToken);
+    }
+  }, [isLoggedIn, accessToken])
+
+  useEffect(() => {
+    setDefaultAccessToken();
+  }, [setDefaultAccessToken]);
+  // %endif
 
   return (
     <div className="w-64 bg-gray-900 text-white p-4 fixed inset-y-0 z-10">

@@ -25,14 +25,14 @@ export function getAccessToken() {
   const method = 'GET';
   const url = '/web/v2/oauth/token';
   const params = {
-    client_id: process.env.REACT_APP_APPID || '',
+    client_id: process.env.REACT_COBO_APP_CLIENT_ID || '',
     org_id: localStorage.getItem('orgID') || '',
     grant_type: 'org_implicit',
   };
   const timestamp = new Date().getTime().toString();
   const signature = getSign(method, url, timestamp, params);
   const headers = {
-    'BIZ-API-KEY': process.env.REACT_APP_PUBLIC_KEY,
+    'BIZ-API-KEY': process.env.REACT_COBO_APP_KEY,
     'BIZ-API-NONCE': timestamp,
     'BIZ-API-SIGNATURE': signature,
   };
@@ -46,7 +46,7 @@ export function getMfaMethods(userId: string) {
   const timestamp = new Date().getTime().toString();
   const signature = getSign(method, url, timestamp, params);
   const headers = {
-    'BIZ-API-KEY': process.env.REACT_APP_PUBLIC_KEY || '',
+    'BIZ-API-KEY': process.env.REACT_COBO_APP_KEY || '',
     'BIZ-API-NONCE': timestamp,
     'BIZ-API-SIGNATURE': signature,
     'AUTHORIZATION': `Bearer ${localStorage.getItem('accessToken')}`,
