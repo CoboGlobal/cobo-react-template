@@ -10,6 +10,8 @@ source "$SCRIPT_DIR/utils.sh"
 PORT=5000
 # %if app_type == portal
 URL=""
+# %endif
+
 ENV="dev"
 
 VALID_ENVS=("sandbox" "dev" "prod")
@@ -23,20 +25,19 @@ validate_env() {
     done
     return 1
 }
-# %endif
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --port) PORT="$2"; shift 2 ;;
         # %if app_type == portal
         --url) URL="$2"; shift 2 ;;
-        --env) ENV="$2"; shift 2 ;;
         # %endif
+        --env) ENV="$2"; shift 2 ;;
         --help)
             # %if app_type == portal
             echo "Usage: $0 [--port PORT] [--env sandbox|dev|prod] [--url URL]"
             # %else
-            echo "Usage: $0 [--port PORT]"
+            echo "Usage: $0 [--port PORT] [--env sandbox|dev|prod]"
             # %endif
             exit 0
             ;;
@@ -48,13 +49,11 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
-# %if app_type == portal
 if ! validate_env "$ENV"; then
     print_error "Invalid environment: $ENV"
     echo "Valid environments are: sandbox, dev, prod"
     exit 1
 fi
-# %endif
 
 # %if app_type == portal
 ensure_key_and_secret "$ENV" || exit 1

@@ -3,7 +3,7 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import Transactions from './pages/Transactions';
 import Wallet from './pages/Wallet';
 import { Provider } from 'jotai';
-import { atomStore } from '@/hooks';
+import { atomStore } from '@/atoms';
 import Home from '@/pages/Home';
 // %if app_type == portal
 import Auth from './pages/Auth';

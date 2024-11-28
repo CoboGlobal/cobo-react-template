@@ -2,11 +2,11 @@
   - app_type:
     - portal
 
-"src/atoms/":
+"src/atoms/auth.ts":
   - app_type:
     - portal
 
-"src/hooks/":
+"src/hooks/auth.ts":
   - app_type:
     - portal
 

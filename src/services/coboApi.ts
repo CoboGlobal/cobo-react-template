@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { atomStore } from '@/hooks';
+import { atomStore } from '@/atoms';
 // %if app_type == portal
 import { accessTokenAtom, refreshTokenAtom } from '@/atoms/auth';
 // %endif
